@@ -1,0 +1,51 @@
+{
+  "name": "figma-design-system-generator",
+  "version": "1.0.0",
+  "description": "Industry-specific Figma Design System & Tailwind Spec Generator",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "cli:dev": "tsx watch src/index.ts",
+    "cli:build": "tsc",
+    "generate": "tsx src/examples/example-usage.ts",
+    "generate:finance": "tsx src/examples/generate-finance.ts",
+    "generate:ecommerce": "tsx src/examples/generate-ecommerce.ts",
+    "generate:healthcare": "tsx src/examples/generate-healthcare.ts",
+    "generate:tech": "tsx src/examples/generate-tech.ts",
+    "generate:education": "tsx src/examples/generate-education.ts",
+    "generate:food": "tsx src/examples/generate-food.ts",
+    "generate:realestate": "tsx src/examples/generate-realestate.ts",
+    "generate:fashion": "tsx src/examples/generate-fashion.ts",
+    "generate:gaming": "tsx src/examples/generate-gaming.ts",
+    "generate:travel": "tsx src/examples/generate-travel.ts",
+    "generate:fitness": "tsx src/examples/generate-fitness.ts",
+    "generate:hotel": "tsx src/examples/generate-hotel.ts",
+    "generate:automotive": "tsx src/examples/generate-automotive.ts",
+    "generate:media": "tsx src/examples/generate-media.ts"
+  },
+  "keywords": [
+    "figma",
+    "design-system",
+    "tailwindcss",
+    "generator"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "autoprefixer": "^10.4.23",
+    "postcss": "^8.5.6",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "tailwindcss": "^3.4.15",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3",
+    "vite": "^7.3.0"
+  }
+}

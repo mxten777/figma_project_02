@@ -1,0 +1,16 @@
+# Output Directory
+
+이 폴더에는 생성된 디자인 시스템 JSON 파일이 저장됩니다.
+
+## 생성 예시
+
+```bash
+npm run generate
+```
+
+위 명령을 실행하면 다음 파일들이 생성됩니다:
+
+- `finance-design-system.json` - 금융 업종
+- `ecommerce-design-system.json` - 이커머스 업종
+- `healthcare-design-system.json` - 헬스케어 업종
+- `tech-design-system.json` - 테크/SaaS 업종
