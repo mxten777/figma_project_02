@@ -2,24 +2,24 @@ import { useState, useEffect } from 'react'
 import { generateAndValidate } from '../src/generator'
 import { BrandTone } from '../src/types'
 import Header from './components/layout/Header'
-import HomePage from './pages/HomePage'
-import GeneratorForm from './components/legacy/GeneratorForm'
-import ResultDisplay from './components/legacy/ResultDisplay'
-import FeatureCards from './components/legacy/FeatureCards'
+import Hero from './sections/HeroSection'
+import Section from './components/layout/Section'
+import GeneratorForm from './components/generator/GeneratorForm'
+import ResultDisplay from './components/generator/ResultDisplay'
 import ComparisonPage from './ComparisonPage'
 import PreviewPage from './PreviewPage'
 
 function App() {
-  // URL 해시 기반 초기 페이지 설정
-  const getInitialPage = (): 'home' | 'generator' | 'comparison' | 'preview' => {
+  // URL 해시 기반 초기 페이지 설정 - 기본값을 'generator'로 변경
+  const getInitialPage = (): 'generator' | 'comparison' | 'preview' => {
     const hash = window.location.hash.slice(1) // # 제거
-    if (hash === 'generator' || hash === 'comparison' || hash === 'preview') {
-      return hash as 'generator' | 'comparison' | 'preview'
+    if (hash === 'comparison' || hash === 'preview') {
+      return hash as 'comparison' | 'preview'
     }
-    return 'home'
+    return 'generator'
   }
 
-  const [currentPage, setCurrentPage] = useState<'home' | 'generator' | 'comparison' | 'preview'>(getInitialPage())
+  const [currentPage, setCurrentPage] = useState<'generator' | 'comparison' | 'preview'>(getInitialPage())
   const [industry, setIndustry] = useState('금융')
   const [brandTone, setBrandTone] = useState<BrandTone>('신뢰')
   const [result, setResult] = useState<string | null>(null)
@@ -29,8 +29,8 @@ function App() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1)
-      if (hash === 'generator' || hash === 'comparison' || hash === 'preview' || hash === 'home' || hash === '') {
-        setCurrentPage(hash === '' ? 'home' : hash as any)
+      if (hash === 'comparison' || hash === 'preview' || hash === '') {
+        setCurrentPage(hash === '' ? 'generator' : hash as any)
       }
     }
 
@@ -40,7 +40,7 @@ function App() {
 
   // 페이지 변경 시 URL 해시 업데이트
   useEffect(() => {
-    const hash = currentPage === 'home' ? '' : currentPage
+    const hash = currentPage === 'generator' ? '' : currentPage
     if (window.location.hash.slice(1) !== hash) {
       window.history.pushState(null, '', hash ? `#${hash}` : window.location.pathname)
     }
@@ -82,89 +82,49 @@ function App() {
 
   // Comparison Page
   if (currentPage === 'comparison') {
-    return <ComparisonPage onBackToGenerator={() => setCurrentPage('home')} />
+    return <ComparisonPage onBackToGenerator={() => setCurrentPage('generator')} />
   }
 
   // Preview Page
   if (currentPage === 'preview') {
-    return <PreviewPage onBackToGenerator={() => setCurrentPage('home')} />
+    return <PreviewPage onBackToGenerator={() => setCurrentPage('generator')} />
   }
 
-  // Home Page (새 디자인 시스템 적용)
-  if (currentPage === 'home') {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-        <Header
-          logoSrc="/images/baikal_logo_trans.png"
-          logoText="Baikal"
-          menuItems={[
-            { label: 'Features', href: '#features' },
-            { label: 'Preview', href: '#preview' },
-            { label: 'Pricing', href: '#pricing' },
-            { label: 'About', href: '#about' },
-          ]}
-          ctaText="Get Started"
-          onCtaClick={() => setCurrentPage('generator')}
-          maxVisibleItems={5}
-        />
-        
-        <HomePage
-          onNavigateToPreview={() => setCurrentPage('preview')}
-          onNavigateToComparison={() => setCurrentPage('comparison')}
-          onNavigateToGenerator={() => setCurrentPage('generator')}
-        />
-      </div>
-    )
-  }
-
-  // Generator Page (기존 유지)
+  // Main Generator Page (새 디자인 시스템 적용)
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       <Header
         logoSrc="/images/baikal_logo_trans.png"
         logoText="Baikal"
         menuItems={[
-          { label: 'Home', href: '#' },
           { label: 'Features', href: '#features' },
-          { label: 'Preview', href: '#preview' },
+          { label: 'About', href: '#about' },
+          { label: 'GitHub', href: 'https://github.com' },
         ]}
         ctaText="Get Started"
-        onCtaClick={() => setCurrentPage('home')}
+        onCtaClick={() => window.scrollTo({ top: document.getElementById('generator')?.offsetTop || 0, behavior: 'smooth' })}
+        maxVisibleItems={5}
       />
       
-      <main className="max-w-7xl mx-auto px-4 py-12">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 whitespace-nowrap">
-            🎨 디자인 시스템 생성기
-          </h1>
-          <p className="text-xl text-gray-600 mb-6 max-w-3xl mx-auto">
-            업종에 맞는 완벽한 Figma & Tailwind 스펙을 즉시 생성하세요
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button
-              onClick={() => setCurrentPage('preview')}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg hover:shadow-xl whitespace-nowrap"
-            >
-              👁️ 랜딩페이지 미리보기
-            </button>
-            <button
-              onClick={() => setCurrentPage('comparison')}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl whitespace-nowrap"
-            >
-              🔍 업종별 비교 보기
-            </button>
-            <button
-              onClick={() => setCurrentPage('home')}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white font-semibold rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all shadow-lg hover:shadow-xl whitespace-nowrap"
-            >
-              🏠 홈으로
-            </button>
-          </div>
-        </div>
+      {/* Hero Section */}
+      <Hero
+        title={
+          <span className="flex items-center justify-center gap-3">
+            <span className="text-5xl md:text-6xl">🎨</span>
+            <span className="whitespace-nowrap">디자인 시스템 생성기</span>
+          </span>
+        }
+        subtitle="업종에 맞는 완벽한 Figma & Tailwind 스펙을 즉시 생성하세요"
+        primaryCtaText="🎨 랜딩페이지 미리보기"
+        onPrimaryCtaClick={() => setCurrentPage('preview')}
+        secondaryCtaText="🌍 업종별 비교 보기"
+        onSecondaryCtaClick={() => setCurrentPage('comparison')}
+        background="gradient"
+      />
 
-        {/* Generator Form */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-12">
+      {/* Generator Section */}
+      <Section spacing="xl" background="transparent" id="generator">
+        <div className="max-w-4xl mx-auto">
           <GeneratorForm
             industry={industry}
             brandTone={brandTone}
@@ -173,22 +133,27 @@ function App() {
             onGenerate={handleGenerate}
             isGenerating={isGenerating}
           />
-
-          <ResultDisplay
-            result={result}
-            onDownload={handleDownload}
-            onCopy={handleCopy}
-          />
         </div>
+      </Section>
 
-        {/* Feature Cards */}
-        <FeatureCards />
-      </main>
+      {/* Result Display */}
+      {result && (
+        <Section spacing="xl" background="transparent">
+          <div className="max-w-6xl mx-auto">
+            <ResultDisplay
+              result={result}
+              industry={industry}
+              onDownload={handleDownload}
+              onCopy={handleCopy}
+            />
+          </div>
+        </Section>
+      )}
 
       {/* Footer */}
       <footer className="bg-white border-t border-gray-200 mt-24 py-8">
-        <div className="max-w-7xl mx-auto px-4 text-center text-gray-600">
-          <p>Made with ❤️ for Designers & Developers</p>
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="text-gray-600">Made with ❤️ by Baikal Team</p>
         </div>
       </footer>
     </div>
