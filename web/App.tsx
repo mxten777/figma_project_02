@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { generateAndValidate } from '../src/generator'
 import { BrandTone } from '../src/types'
 import Header from './components/layout/Header'
@@ -10,11 +10,41 @@ import ComparisonPage from './ComparisonPage'
 import PreviewPage from './PreviewPage'
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'generator' | 'comparison' | 'preview'>('home')
+  // URL 해시 기반 초기 페이지 설정
+  const getInitialPage = (): 'home' | 'generator' | 'comparison' | 'preview' => {
+    const hash = window.location.hash.slice(1) // # 제거
+    if (hash === 'generator' || hash === 'comparison' || hash === 'preview') {
+      return hash as 'generator' | 'comparison' | 'preview'
+    }
+    return 'home'
+  }
+
+  const [currentPage, setCurrentPage] = useState<'home' | 'generator' | 'comparison' | 'preview'>(getInitialPage())
   const [industry, setIndustry] = useState('금융')
   const [brandTone, setBrandTone] = useState<BrandTone>('신뢰')
   const [result, setResult] = useState<string | null>(null)
   const [isGenerating, setIsGenerating] = useState(false)
+
+  // URL 해시 변경 시 페이지 업데이트
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1)
+      if (hash === 'generator' || hash === 'comparison' || hash === 'preview' || hash === 'home' || hash === '') {
+        setCurrentPage(hash === '' ? 'home' : hash as any)
+      }
+    }
+
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [])
+
+  // 페이지 변경 시 URL 해시 업데이트
+  useEffect(() => {
+    const hash = currentPage === 'home' ? '' : currentPage
+    if (window.location.hash.slice(1) !== hash) {
+      window.history.pushState(null, '', hash ? `#${hash}` : window.location.pathname)
+    }
+  }, [currentPage])
 
   const handleGenerate = () => {
     setIsGenerating(true)
