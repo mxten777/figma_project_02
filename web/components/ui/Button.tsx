@@ -41,12 +41,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             // Secondary: 보조 액션 (더보기, 취소)
             'border-2 border-gray-300 bg-white text-gray-700 hover:bg-gray-50 active:bg-gray-100': 
               variant === 'secondary',
-            'focus:ring-gray-500': variant === 'secondary',
+            'focus:ring-gray-400': variant === 'secondary',
             
             // Ghost: 최소 강조 (링크 대체, 아이콘 버튼)
             'text-gray-700 hover:bg-gray-100 active:bg-gray-200': 
               variant === 'ghost',
-            'focus:ring-gray-500': variant === 'ghost',
+            'focus:ring-gray-300': variant === 'ghost',
           },
           
           // Size styles - Figma Text Styles 매핑

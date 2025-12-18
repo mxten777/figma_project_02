@@ -9,10 +9,10 @@
  */
 
 import { ReactNode } from 'react'
-import { cn } from '../../utils/cn'
-import Section from '../layout/Section'
-import Typography from '../ui/Typography'
-import Button from '../ui/Button'
+import { cn } from '../utils/cn'
+import Section from '../components/layout/Section'
+import Typography from '../components/ui/Typography'
+import Button from '../components/ui/Button'
 
 export interface HeroProps {
   /** 메인 제목 */
