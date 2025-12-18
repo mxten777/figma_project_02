@@ -61,7 +61,7 @@ export default function HomePage({
       {/* Hero Section */}
       <Hero
         title={
-          <span className="block">
+          <span className="block text-5xl md:text-6xl lg:text-7xl font-extrabold">
             🎨 디자인 시스템<br className="hidden sm:inline" /> 생성기
           </span>
         }
@@ -72,19 +72,55 @@ export default function HomePage({
         onSecondaryCtaClick={onNavigateToPreview}
         media={
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl blur-3xl opacity-20" />
-            <div className="relative bg-white p-8 rounded-2xl shadow-2xl">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600" />
-                  <div className="flex-1 h-4 bg-gray-200 rounded" />
+            {/* Glow Effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-500 rounded-3xl blur-3xl opacity-20" />
+            
+            {/* Main Card */}
+            <div className="relative bg-white p-6 md:p-8 rounded-2xl shadow-2xl border border-gray-100">
+              {/* Header with Logo */}
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
+                  <span className="text-white font-bold text-lg">B</span>
                 </div>
-                <div className="grid grid-cols-3 gap-3">
-                  {[...Array(6)].map((_, i) => (
-                    <div key={i} className="h-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg" />
-                  ))}
+                <div className="flex-1">
+                  <div className="h-3 bg-gradient-to-r from-gray-800 to-gray-600 rounded w-24 mb-1.5"></div>
+                  <div className="h-2 bg-gray-300 rounded w-32"></div>
                 </div>
               </div>
+              
+              {/* Color Palette Preview */}
+              <div className="space-y-3 mb-6">
+                <div className="flex gap-2">
+                  <div className="w-12 h-12 rounded-lg bg-blue-500 shadow-md"></div>
+                  <div className="w-12 h-12 rounded-lg bg-blue-400 shadow-md"></div>
+                  <div className="w-12 h-12 rounded-lg bg-blue-300 shadow-md"></div>
+                  <div className="w-12 h-12 rounded-lg bg-blue-200 shadow-md"></div>
+                </div>
+                <div className="flex gap-2">
+                  <div className="w-12 h-12 rounded-lg bg-purple-500 shadow-md"></div>
+                  <div className="w-12 h-12 rounded-lg bg-purple-400 shadow-md"></div>
+                  <div className="w-12 h-12 rounded-lg bg-purple-300 shadow-md"></div>
+                  <div className="w-12 h-12 rounded-lg bg-purple-200 shadow-md"></div>
+                </div>
+              </div>
+              
+              {/* Typography & Components */}
+              <div className="space-y-3">
+                <div className="h-6 bg-gradient-to-r from-gray-800 to-gray-700 rounded w-3/4"></div>
+                <div className="h-4 bg-gray-300 rounded w-full"></div>
+                <div className="h-4 bg-gray-300 rounded w-5/6"></div>
+                
+                {/* Buttons Preview */}
+                <div className="flex gap-2 pt-2">
+                  <div className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg shadow-md flex-1"></div>
+                  <div className="px-4 py-2 border-2 border-gray-300 rounded-lg flex-1"></div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Floating Badge */}
+            <div className="absolute -top-3 -right-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 rounded-full shadow-lg text-xs font-bold">
+              ✨ AI Generated
             </div>
           </div>
         }

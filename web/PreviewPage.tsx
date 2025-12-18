@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { generateDesignSystem } from '../src/generator'
 import { BrandTone } from '../src/types'
+import Header from './components/layout/Header'
 
 const INDUSTRIES = [
   { value: '금융', label: '🏦 금융' },
@@ -33,8 +34,19 @@ export default function PreviewPage({ onBackToGenerator }: PreviewPageProps) {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Header
+        logoSrc="/images/baikal_logo_trans.png"
+        logoText="Baikal"
+        menuItems={[
+          { label: 'Generator', onClick: onBackToGenerator },
+          { label: 'Preview', onClick: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
+        ]}
+        ctaText="← 돌아가기"
+        onCtaClick={onBackToGenerator}
+        maxVisibleItems={5}
+      />
       {/* Control Panel */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+      <div className="bg-white border-b border-gray-200 sticky top-16 md:top-20 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-4 md:py-6">
           <div className="flex flex-col gap-4 md:gap-6">
             <div className="flex items-start md:items-center justify-between gap-4">

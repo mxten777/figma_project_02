@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { generateDesignSystem } from '../src/generator'
 import { BrandTone } from '../src/types'
+import Header from './components/layout/Header'
 
 const INDUSTRIES = [
   { value: '금융', label: '🏦 금융', color: '#0052CC' },
@@ -33,21 +34,26 @@ export default function ComparisonPage({ onBackToGenerator }: ComparisonPageProp
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-[1600px] mx-auto px-6 py-4 flex items-center justify-between">
-          <div>
+      <Header
+        logoSrc="/images/baikal_logo_trans.png"
+        logoText="Baikal"
+        menuItems={[
+          { label: 'Generator', onClick: onBackToGenerator },
+          { label: 'Comparison', onClick: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
+        ]}
+        ctaText="← 돌아가기"
+        onCtaClick={onBackToGenerator}
+        maxVisibleItems={5}
+      />
+      {/* Control Panel */}
+      <div className="bg-white border-b border-gray-200 sticky top-16 md:top-20 z-40">
+        <div className="max-w-[1600px] mx-auto px-6 py-4">
+          <div className="mb-4">
             <h1 className="text-2xl font-bold text-gray-900">🔍 업종별 디자인 시스템 비교</h1>
             <p className="text-sm text-gray-600 mt-1">두 업종의 디자인 차이를 한눈에 비교하세요</p>
           </div>
-          <button
-            onClick={onBackToGenerator}
-            className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors"
-          >
-            ← 생성기로 돌아가기
-          </button>
         </div>
-      </header>
+      </div>
 
       {/* Controls */}
       <div className="max-w-[1600px] mx-auto px-6 py-8">

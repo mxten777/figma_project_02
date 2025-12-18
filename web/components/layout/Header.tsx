@@ -14,7 +14,8 @@ import Button from '../ui/Button'
 
 export interface MenuItem {
   label: string
-  href: string
+  href?: string
+  onClick?: () => void
 }
 
 export interface HeaderProps {
@@ -83,13 +84,23 @@ const Header = ({
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           {visibleItems.map((item, idx) => (
-            <a
-              key={idx}
-              href={item.href}
-              className="text-gray-700 hover:text-gray-900 font-medium transition-colors text-sm xl:text-base"
-            >
-              {item.label}
-            </a>
+            item.onClick ? (
+              <button
+                key={idx}
+                onClick={item.onClick}
+                className="text-gray-700 hover:text-gray-900 font-medium transition-colors text-sm xl:text-base"
+              >
+                {item.label}
+              </button>
+            ) : (
+              <a
+                key={idx}
+                href={item.href || '#'}
+                className="text-gray-700 hover:text-gray-900 font-medium transition-colors text-sm xl:text-base"
+              >
+                {item.label}
+              </a>
+            )
           ))}
           
           {/* More 드롭다운 */}
@@ -108,13 +119,27 @@ const Header = ({
               {isMoreOpen && (
                 <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2">
                   {moreItems.map((item, idx) => (
-                    <a
-                      key={idx}
-                      href={item.href}
-                      className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
-                    >
-                      {item.label}
-                    </a>
+                    item.onClick ? (
+                      <button
+                        key={idx}
+                        onClick={() => {
+                          item.onClick?.()
+                          setIsMoreOpen(false)
+                        }}
+                        className="w-full text-left block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        {item.label}
+                      </button>
+                    ) : (
+                      <a
+                        key={idx}
+                        href={item.href || '#'}
+                        className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
+                        onClick={() => setIsMoreOpen(false)}
+                      >
+                        {item.label}
+                      </a>
+                    )
                   ))}
                 </div>
               )}
@@ -154,14 +179,27 @@ const Header = ({
         <div className="lg:hidden border-t border-gray-200 bg-white">
           <nav className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-2">
             {menuItems.map((item, idx) => (
-              <a
-                key={idx}
-                href={item.href}
-                className="px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {item.label}
-              </a>
+              item.onClick ? (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    item.onClick?.()
+                    setIsMobileMenuOpen(false)
+                  }}
+                  className="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors font-medium"
+                >
+                  {item.label}
+                </button>
+              ) : (
+                <a
+                  key={idx}
+                  href={item.href || '#'}
+                  className="px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </a>
+              )
             ))}
             <div className="pt-2 mt-2 border-t border-gray-200">
               <Button 
