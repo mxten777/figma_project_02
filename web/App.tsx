@@ -154,41 +154,6 @@ function App() {
         {/* Feature Cards */}
         <FeatureCards />
       </main>
-    </div>
-  )
-}
-
-export default App
-
-            </button>
-          </div>
-        </div>
-
-        {/* Main Generator */}
-        <div className="bg-white rounded-3xl shadow-2xl p-8 mb-12">
-          <GeneratorForm
-            industry={industry}
-            brandTone={brandTone}
-            onIndustryChange={setIndustry}
-            onBrandToneChange={setBrandTone}
-            onGenerate={handleGenerate}
-            isGenerating={isGenerating}
-          />
-        </div>
-
-        {/* Result Display */}
-        {result && (
-          <ResultDisplay
-            result={result}
-            industry={industry}
-            onDownload={handleDownload}
-            onCopy={handleCopy}
-          />
-        )}
-
-        {/* Features */}
-        {!result && <FeatureCards />}
-      </main>
 
       {/* Footer */}
       <footer className="bg-white border-t border-gray-200 mt-24 py-8">
