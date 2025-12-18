@@ -7,3 +7,5 @@ output/*.json
 *.swo
 .vscode/
 .idea/
+.vercel
+.env*.local
